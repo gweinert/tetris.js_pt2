@@ -14,12 +14,12 @@ GAME.Block = (function(){
   function Block(x, y, height, width){
 
     this.pos = {
-                  x: 150,
-                  y: 0
+                  x: x,
+                  y: y
     };
 
-    this.width = model.blockWidth;
-    this.height = model.blockHeight;
+    this.width = width;
+    this.height = height;
     this.color = "green";
     this.acceleration = 30;
   }
@@ -32,14 +32,16 @@ GAME.Block = (function(){
   };
 
   model.buildNewBlock = function(){
-    var block = new Block(150, 0);
+    var block = new Block(150, 0, model.blockWidth, model.blockHeight);
     model.currentBlock = block;
     model.blocks.push(block);
   };
 
   model.build2x2 = function(){
-    var block = new Block()
-  }
+    var block = new Block(150, 0, model.blockWidth, model.blockHeight);
+    model.currentBlock = block;
+    model.blocks.push(block);
+  };
 
   model.addToPlacedBlocks = function(block){
     //before!!!

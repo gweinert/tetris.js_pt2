@@ -55,7 +55,8 @@ GAME.Controller = (function(){
     _startKeyListener();
     GAME.Render.init();
     GAME.Render.drawBg();
-    GAME.Block.buildNewBlock();
+    // GAME.Block.buildNewBlock();
+    GAME.Block.build2x2();
     var currentBlock = GAME.Block.currentBlock;
 
 
@@ -66,7 +67,8 @@ GAME.Controller = (function(){
   function playGameLogic(){
     if( GAME.Board.needNewBlock === true ){
       GAME.Block.addToPlacedBlocks(GAME.Block.currentBlock);
-      GAME.Block.buildNewBlock();
+      // GAME.Block.buildNewBlock();
+      GAME.Block.build2x2();
       GAME.Board.needNewBlock = false;
     }
     else
@@ -110,7 +112,7 @@ GAME.Controller = (function(){
       rowHolder[key] = 0;
       clear = false;
     }
-    console.log(rowHolder);
+    // console.log(rowHolder);
     
   }
 

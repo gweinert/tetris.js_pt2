@@ -17,7 +17,8 @@ GAME.Render = (function(){
     GAME.Render.drawBg();
     
     for(var i = 0 ; i < GAME.Block.blocks.length ; i++ ){
-      GAME.Render.drawBlock(GAME.Block.blocks[i].pos.x, GAME.Block.blocks[i].pos.y);
+      // GAME.Render.drawBlock(GAME.Block.blocks[i].pos.x, GAME.Block.blocks[i].pos.y);
+      GAME.Render.drawBlock(GAME.Block.blocks[i]);
     }
     // GAME.Render.drawBlock(GAME.Block.currentBlock.pos.x,GAME.Block.currentBlock.pos.y);
     // for(var i in GAME.Block.placedBlocks){
@@ -33,11 +34,12 @@ GAME.Render = (function(){
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   }
 
-  function drawBlock(x, y){
+  function drawBlock(block){
     ctx.fillStyle = "green";
     ctx.strokeWidth = "2px";
     ctx.strokeStyle = "white";
-    ctx.strokeRect(x, y, GAME.Block.blockWidth, GAME.Block.blockHeight);
+    // ctx.strokeRect(x, y, GAME.Block.blockWidth, GAME.Block.blockHeight);
+    ctx.strokeRect(block.pos.x, block.pos.y, block.width, block.height);
 
     ctx.stroke();
     
