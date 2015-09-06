@@ -4,7 +4,10 @@ var GAME = GAME || {};
 GAME.Block = (function(){
 
   var canvas = document.getElementById('canvas');
-  var blockTypes = ["square", "rectangle"];
+  var blockTypes = {
+                      1: Square,
+                      2: Rectangle
+                  };
   var model = {};
   model.blockWidth = canvas.width/10;
   model.blockHeight = canvas.height/20;
@@ -26,38 +29,49 @@ GAME.Block = (function(){
     this.acceleration = 30;
   }
 
-  function Square(){
+  function Square(x, y){
 
     this.pos = {
-                  x: 150,
-                  y: 0
+                  x: x,
+                  y: y
                 };
+    this.type = {1 : Square};
     this.height = model.blockHeight*2;
     this.width = model.blockWidth*2;
-    this.acceleration = 20;
+    this.acceleration = 30;
     this.pieces = [];
 
-    this.pieces[0] = [150, 0];
-    this.pieces[1] = [180, 0];
-    this.pieces[2] = [150, 30];
-    this.pieces[3] = [180, 30];
+    // this.pieces[0] = [150, 0];
+    // this.pieces[1] = [180, 0];
+    // this.pieces[2] = [150, 30];
+    // this.pieces[3] = [180, 30];
+     this.pieces[0] = [this.pos.x, this.pos.y];
+    this.pieces[1] = [this.pos.x + 30, this.pos.y];
+    this.pieces[2] = [this.pos.x, this.pos.y +30];
+    this.pieces[3] = [this.pos.x + 30, this.pos.y + 30];
   }
 
-  function Rectangle(){
+  function Rectangle(x, y){
     this.pos = {
-                  x: 150,
-                  y: 0
+                  x: x,
+                  y: y
                };
+
+    this.type = {1 : Rectangle};
 
     this.height = model.blockHeight;
     this.width = model.blockWidth;
-    this.acceleration = 20;
+    this.acceleration = 30;
     this.pieces = [];
 
-    this.pieces[0] = [x - 60, y];
-    this.pieces[1] = [x - 30, y];
-    this.pieces[2] = [x, y];
-    this.pieces[3] = [x + 30, y];
+    // this.pieces[0] = [x - 60, y];
+    // this.pieces[1] = [x - 30, y];
+    // this.pieces[2] = [x, y];
+    // this.pieces[3] = [x + 30, y];
+    this.pieces[0] = [this.pos.x - 60, this.pos.y];
+    this.pieces[1] = [this.pos.x - 30, this.pos.y];
+    this.pieces[2] = [this.pos.x, this.pos.y];
+    this.pieces[3] = [this.pos.x + 30, this.pos.y];
   }
 
   // Block.prototype.tic = function(){
@@ -82,17 +96,27 @@ GAME.Block = (function(){
 
   //will need to fix
   model.dropToBottom = function(block, pos){
-    block.pos.y = pos - model.blockHeight;
-    for(var i = 0; i<block.pieces.length; i++){
+    // block.pos.y = pos - block.height;
+    var x = block.pos.x;
+    var y = canvas.height - block.height;
+    model.blocks.pop();
+    blockType = block.type[1];
+    model.currentBlock = {};
+    var droppedBlock = new blockType(x, y);
+    model.blocks.push(droppedBlock);
+    model.addToPlacedBlocks(droppedBlock)
+    // for(var i = 0; i<block.pieces.length; i++){
       //bottom blocks
-      if(i > 1 ){
-          block.pieces[i][1] = pos - model.blockHeight;
-      }
-      //top blocks
-      else{
-        block.pieces[i][1] = pos - block.height;
-      }
-    }
+      // model.
+      // block.pieces[i][1] = (pos - block.height);
+      // if(i > 1 ){
+      //     block.pieces[i][1] = pos - model.blockHeight;
+      // }
+      // //top blocks
+      // else{
+      //   block.pieces[i][1] = pos - block.height;
+      // }
+    // }
   };
   
   model.drop = function(){
@@ -135,8 +159,10 @@ GAME.Block = (function(){
   };
 
   model.buildNewBlock = function(){
-    // var block = new Block(150, 0, model.blockWidth, model.blockHeight);
-    var block = new Square(100);
+    var randomNum = Math.floor(Math.random() * 2)+1;
+    var randomBlock = blockTypes[randomNum];
+    console.log(randomBlock);
+    var block = new randomBlock(150, 0);
     model.currentBlock = block;
     model.blocks.push(block);
   };
