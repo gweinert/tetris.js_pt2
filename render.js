@@ -17,29 +17,31 @@ GAME.Render = (function(){
     GAME.Render.drawBg();
     
     for(var i = 0 ; i < GAME.Block.blocks.length ; i++ ){
-      // GAME.Render.drawBlock(GAME.Block.blocks[i].pos.x, GAME.Block.blocks[i].pos.y);
-      GAME.Render.drawBlock(GAME.Block.blocks[i]);
-    }
-    // GAME.Render.drawBlock(GAME.Block.currentBlock.pos.x,GAME.Block.currentBlock.pos.y);
-    // for(var i in GAME.Block.placedBlocks){
-    //   GAME.Render.drawBlock(GAME.Block.placedBlocks[i][0], GAME.Block.placedBlocks[i][1]);
-    // }
 
-    // console.log(GAME.Block.currentBlock.pos.x, GAME.Block.currentBlock.pos.y);
+      // GAME.Render.drawBlock(GAME.Block.blocks[i]);
+      GAME.Block.eachBlock(GAME.Block.blocks[i], drawBlock);
+    }
   }
 
   function drawBg(){
-    ctx.clearRect(0, 0, 300, 600);
+    // ctx.clearRect(0, 0, 300, 600);
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   }
 
-  function drawBlock(block){
-    ctx.fillStyle = "green";
-    ctx.strokeWidth = "2px";
+  function drawBlock(x, y){
+    // ctx.fillStyle = "green";
+    ctx.strokeWidth = "4px";
     ctx.strokeStyle = "white";
-    // ctx.strokeRect(x, y, GAME.Block.blockWidth, GAME.Block.blockHeight);
-    ctx.strokeRect(block.pos.x, block.pos.y, block.width, block.height);
+    // ctx.strokeRect(block.pieces[0][0], block.pieces[0][1], GAME.Block.blockWidth, GAME.Block.blockHeight);
+    ctx.strokeRect(x, y, GAME.Block.blockWidth, GAME.Block.blockHeight);
+
+    // for(var i = 0; i < block.pieces.length ; i++ ){
+    //   console.log(block.pieces[i][0],block.pieces[i][1])
+    //   console.log(block.width, block.height)
+    //   ctx.strokeRect(block.pieces[i][0], block.pieces[i][1], block.width, block.height);
+    // }
+    // GAME.model.eachBlock(block, )
 
     ctx.stroke();
     

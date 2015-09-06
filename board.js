@@ -38,6 +38,7 @@ GAME.Board = (function(){
     }
     
     if(hasBlock(x,y) || y >= canvasHeight){
+      console.log(x,y)
       GAME.Board.needNewBlock = true;
       return true;
     }
