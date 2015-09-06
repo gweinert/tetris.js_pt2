@@ -22,19 +22,11 @@ GAME.Controller = (function(){
   }
 
   function moveDown(){
-    var x = GAME.Block.currentBlock.pos.x;
-    if(GAME.Block.placedBlocks[x] && GAME.Block.placedBlocks[x].length > 0){
-      var arr = GAME.Block.placedBlocks[x][GAME.Block.placedBlocks[x].length-1];
-      if ( arr ){
-        GAME.Block.currentBlock.pos.y = arr[1]-GAME.Block.blockHeight;
-        GAME.Board.needNewBlock = true;
-      }
-      else{GAME.Block.currentBlock.pos.y = canvas.height - GAME.Block.blockHeight;}
-    }
-    else{
-      GAME.Block.currentBlock.pos.y = canvas.height - GAME.Block.blockHeight;
-    }
+
+    GAME.Block.drop();
   }
+
+
 
   function moveLeft(){
     var block = GAME.Block.currentBlock;
